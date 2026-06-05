@@ -1,0 +1,60 @@
+{
+  "version": "1.0",
+  "lastUpdated": "2026-05-28T00:00:00Z",
+  "harnesses": [
+    {
+      "id": "data-intensive",
+      "name": "Data Intensive Harness",
+      "description": "Optimized for large-scale data processing with caching strategies, batch processing templates, and performance monitoring.",
+      "category": "data",
+      "tags": ["data", "performance", "processing", "batch"],
+      "dependencies": [],
+      "author": "Harness Team",
+      "version": "1.0.0",
+      "files": [
+        {
+          "path": "harnesses/data-intensive/config.json",
+          "type": "config",
+          "description": "Configuration template"
+        },
+        {
+          "path": "harnesses/data-intensive/template.yaml",
+          "type": "template",
+          "description": "Harness template file"
+        },
+        {
+          "path": "harnesses/data-intensive/README.md",
+          "type": "documentation",
+          "description": "Setup and usage instructions"
+        }
+      ]
+    },
+    {
+      "id": "migration",
+      "name": "Migration Harness",
+      "description": "For migrating between systems or versions with compatibility checks, data transformation utilities, and rollback procedures.",
+      "category": "migration",
+      "tags": ["migration", "compatibility", "transformation", "rollback"],
+      "dependencies": [],
+      "author": "Harness Team",
+      "version": "1.0.0",
+      "files": [
+        {
+          "path": "harnesses/migration/config.json",
+          "type": "config",
+          "description": "Configuration template"
+        },
+        {
+          "path": "harnesses/migration/template.yaml",
+          "type": "template",
+          "description": "Harness template file"
+        },
+        {
+          "path": "harnesses/migration/README.md",
+          "type": "documentation",
+          "description": "Setup and usage instructions"
+        }
+      ]
+    }
+  ]
+}
