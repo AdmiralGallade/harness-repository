@@ -1,0 +1,13 @@
+[project]
+name = "Reflexive-Claude-Code"
+version = "0.2.1"
+description = "A skills-driven Agentic Context Engineering workflow for Claude Code."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "pylint>=4.0.4",
+    "pytest>=8.0",
+]
