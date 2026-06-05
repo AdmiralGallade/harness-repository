@@ -1,0 +1,28 @@
+queries:
+  - query: "How does BM25 full-text search ranking work?"
+    expected_top3:
+      - full-text-search-engines
+      - hybrid-search-vs-keyword
+      - sql-indexing-fundamentals
+  - query: "What are vector embeddings and how are they used for semantic search?"
+    expected_top3:
+      - vector-embeddings-overview
+      - sqlite-over-dedicated-vector-db
+      - hybrid-search-vs-keyword
+  - query: "How does TLS encrypt network connections?"
+    expected_top3:
+      - tls-handshake
+      - dns-resolution
+      - zero-trust-architecture
+  - query: "What neural network architectures are used in modern AI?"
+    expected_top3:
+      - transformer-architecture
+      - neural-network-basics
+      - gradient-descent-optimization
+  - query: "How do database transactions ensure data consistency?"
+    expected_top3:
+      - database-transactions
+      - sql-indexing-fundamentals
+      - connection-pooling
+
+threshold: 0.8

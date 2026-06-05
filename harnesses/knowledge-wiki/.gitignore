@@ -1,0 +1,7 @@
+.wiki-index.db
+.dev-wiki/
+.claude/
+**/__pycache__/
+.pytest_cache/
+.coverage
+htmlcov/

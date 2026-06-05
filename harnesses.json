@@ -1,328 +1,994 @@
-{
-  "version": "1.0",
-  "lastUpdated": "2026-06-05T00:00:00Z",
-  "harnesses": [
-    {
-      "id": "data-intensive",
-      "name": "Data Intensive Harness",
-      "description": "Optimized for large-scale data processing with caching strategies, batch processing templates, and performance monitoring.",
-      "category": "data",
-      "tags": ["data", "performance", "processing", "batch"],
-      "dependencies": [],
-      "author": "Harness Team",
-      "version": "1.0.0",
-      "files": [
-        {
-          "path": "harnesses/data-intensive/config.json",
-          "type": "config",
-          "description": "Configuration template"
-        },
-        {
-          "path": "harnesses/data-intensive/template.yaml",
-          "type": "template",
-          "description": "Harness template file"
-        },
-        {
-          "path": "harnesses/data-intensive/README.md",
-          "type": "documentation",
-          "description": "Setup and usage instructions"
-        }
-      ]
-    },
-    {
-      "id": "migration",
-      "name": "Migration Harness",
-      "description": "For migrating between systems or versions with compatibility checks, data transformation utilities, and rollback procedures.",
-      "category": "migration",
-      "tags": ["migration", "compatibility", "transformation", "rollback"],
-      "dependencies": [],
-      "author": "Harness Team",
-      "version": "1.0.0",
-      "files": [
-        {
-          "path": "harnesses/migration/config.json",
-          "type": "config",
-          "description": "Configuration template"
-        },
-        {
-          "path": "harnesses/migration/template.yaml",
-          "type": "template",
-          "description": "Harness template file"
-        },
-        {
-          "path": "harnesses/migration/README.md",
-          "type": "documentation",
-          "description": "Setup and usage instructions"
-        }
-      ]
-    }
-  ,
-    {
-      "id": "dev-wiki",
-      "name": "Dev Wiki",
-      "description": "Phase-based project lifecycle system for Claude Code. Tracks phases, decisions, tasks, and knowledge across sessions using a local .dev-wiki/ directory. Includes skills, hooks, and rules for session continuity, TDD task tracking, and architecture scanning.",
-      "category": "workflow",
-      "tags": ["claude-code", "workflow", "lifecycle", "wiki", "tasks", "hooks", "skills"],
-      "dependencies": [],
-      "author": "j-wanger (https://github.com/j-wanger/dev-wiki)",
-      "version": "2.0.0",
-      "files": [
-        {
-          "path": "harnesses/dev-wiki/README.md",
-          "type": "documentation",
-          "description": "Setup and usage instructions"
-        },
-        {
-          "path": "harnesses/dev-wiki/hooks/session-start.sh",
-          "type": "template",
-          "description": "SessionStart hook — loads dev-wiki context"
-        },
-        {
-          "path": "harnesses/dev-wiki/hooks/session-stop.sh",
-          "type": "template",
-          "description": "Stop hook — writes session-end breadcrumb"
-        },
-        {
-          "path": "harnesses/dev-wiki/hooks/dev-wiki-post-commit.sh",
-          "type": "template",
-          "description": "PostToolUse (Bash) hook — captures git commits"
-        },
-        {
-          "path": "harnesses/dev-wiki/hooks/dev-wiki-scope-check.sh",
-          "type": "template",
-          "description": "PostToolUse (Write/Edit) hook — scope check against active task"
-        },
-        {
-          "path": "harnesses/dev-wiki/hooks/stale-queue.sh",
-          "type": "template",
-          "description": "PostToolUse (Write/Edit) hook — tracks modified files for architecture refresh"
-        },
-        {
-          "path": "harnesses/dev-wiki/rules/dev-wiki-hooks.md",
-          "type": "config",
-          "description": "Claude Code rule — TDD workflow, blocked-task escalation, escape hatches"
-        },
-        {
-          "path": "harnesses/dev-wiki/skills/dev-wiki/SKILL.md",
-          "type": "template",
-          "description": "dev-wiki skill — router and shared companions"
-        },
-        {
-          "path": "harnesses/dev-wiki/skills/dev-wiki/active-knowledge-spec.md",
-          "type": "template",
-          "description": "dev-wiki companion — active knowledge spec"
-        },
-        {
-          "path": "harnesses/dev-wiki/skills/dev-wiki/architecture-template.md",
-          "type": "template",
-          "description": "dev-wiki companion — architecture template"
-        },
-        {
-          "path": "harnesses/dev-wiki/skills/dev-wiki/claude-md-lifecycle.md",
-          "type": "template",
-          "description": "dev-wiki companion — CLAUDE.md lifecycle"
-        },
-        {
-          "path": "harnesses/dev-wiki/skills/dev-wiki/decision-template.md",
-          "type": "template",
-          "description": "dev-wiki companion — decision template"
-        },
-        {
-          "path": "harnesses/dev-wiki/skills/dev-wiki/journal-templates.md",
-          "type": "template",
-          "description": "dev-wiki companion — journal templates"
-        },
-        {
-          "path": "harnesses/dev-wiki/skills/dev-wiki/phase-template.md",
-          "type": "template",
-          "description": "dev-wiki companion — phase template"
-        },
-        {
-          "path": "harnesses/dev-wiki/skills/dev-wiki/size-budgets.md",
-          "type": "template",
-          "description": "dev-wiki companion — size budgets"
-        },
-        {
-          "path": "harnesses/dev-wiki/skills/dev-wiki/slugification.md",
-          "type": "template",
-          "description": "dev-wiki companion — slugification"
-        },
-        {
-          "path": "harnesses/dev-wiki/skills/dev-wiki/stale-queue-spec.md",
-          "type": "template",
-          "description": "dev-wiki companion — stale queue spec"
-        },
-        {
-          "path": "harnesses/dev-wiki/skills/dev-wiki/state-template.md",
-          "type": "template",
-          "description": "dev-wiki companion — state template"
-        },
-        {
-          "path": "harnesses/dev-wiki/skills/dev-wiki/working-knowledge-spec.md",
-          "type": "template",
-          "description": "dev-wiki companion — working knowledge spec"
-        },
-        {
-          "path": "harnesses/dev-wiki/skills/dev-check/SKILL.md",
-          "type": "template",
-          "description": "dev-check skill — wiki integrity validation"
-        },
-        {
-          "path": "harnesses/dev-wiki/skills/dev-debrief/SKILL.md",
-          "type": "template",
-          "description": "dev-debrief skill — session capture and review"
-        },
-        {
-          "path": "harnesses/dev-wiki/skills/dev-debrief/active-knowledge-transition.md",
-          "type": "template",
-          "description": "dev-debrief companion — active knowledge transition"
-        },
-        {
-          "path": "harnesses/dev-wiki/skills/dev-debrief/architecture-staleness-check.md",
-          "type": "template",
-          "description": "dev-debrief companion — architecture staleness check"
-        },
-        {
-          "path": "harnesses/dev-wiki/skills/dev-debrief/claude-md-refresh.md",
-          "type": "template",
-          "description": "dev-debrief companion — CLAUDE.md refresh"
-        },
-        {
-          "path": "harnesses/dev-wiki/skills/dev-debrief/debrief-finalization.md",
-          "type": "template",
-          "description": "dev-debrief companion — finalization flow"
-        },
-        {
-          "path": "harnesses/dev-wiki/skills/dev-debrief/quick-debrief-flow.md",
-          "type": "template",
-          "description": "dev-debrief companion — quick debrief flow"
-        },
-        {
-          "path": "harnesses/dev-wiki/skills/dev-debrief/retro-check.md",
-          "type": "template",
-          "description": "dev-debrief companion — retro check"
-        },
-        {
-          "path": "harnesses/dev-wiki/skills/dev-debrief/review-gate.md",
-          "type": "template",
-          "description": "dev-debrief companion — review gate"
-        },
-        {
-          "path": "harnesses/dev-wiki/skills/dev-debrief/reviewer-prompt.md",
-          "type": "template",
-          "description": "dev-debrief companion — reviewer prompt"
-        },
-        {
-          "path": "harnesses/dev-wiki/skills/dev-init/SKILL.md",
-          "type": "template",
-          "description": "dev-init skill — project bootstrapping"
-        },
-        {
-          "path": "harnesses/dev-wiki/skills/dev-init/init-scaffolding.md",
-          "type": "template",
-          "description": "dev-init companion — scaffolding logic"
-        },
-        {
-          "path": "harnesses/dev-wiki/skills/dev-init/scaffold-claude-md.md",
-          "type": "template",
-          "description": "dev-init companion — CLAUDE.md scaffolding"
-        },
-        {
-          "path": "harnesses/dev-wiki/skills/dev-init/templates/AGENTS.md",
-          "type": "template",
-          "description": "dev-init template — AGENTS.md session-start protocol"
-        },
-        {
-          "path": "harnesses/dev-wiki/skills/dev-init/templates/project-CLAUDE.md",
-          "type": "template",
-          "description": "dev-init template — project CLAUDE.md starter"
-        },
-        {
-          "path": "harnesses/dev-wiki/skills/dev-plan/SKILL.md",
-          "type": "template",
-          "description": "dev-plan skill — phase planning"
-        },
-        {
-          "path": "harnesses/dev-wiki/skills/dev-plan/approach-reviewer-prompt.md",
-          "type": "template",
-          "description": "dev-plan companion — approach reviewer prompt"
-        },
-        {
-          "path": "harnesses/dev-wiki/skills/dev-plan/compaction-anchors-spec.md",
-          "type": "template",
-          "description": "dev-plan companion — compaction anchors spec"
-        },
-        {
-          "path": "harnesses/dev-wiki/skills/dev-plan/implementation-guide.md",
-          "type": "template",
-          "description": "dev-plan companion — implementation guide"
-        },
-        {
-          "path": "harnesses/dev-wiki/skills/dev-plan/iterative-retrieval-spec.md",
-          "type": "template",
-          "description": "dev-plan companion — iterative retrieval spec"
-        },
-        {
-          "path": "harnesses/dev-wiki/skills/dev-plan/plan-reviewer-prompt.md",
-          "type": "template",
-          "description": "dev-plan companion — plan reviewer prompt"
-        },
-        {
-          "path": "harnesses/dev-wiki/skills/dev-plan/research-pause-spec.md",
-          "type": "template",
-          "description": "dev-plan companion — research pause spec"
-        },
-        {
-          "path": "harnesses/dev-wiki/skills/dev-plan/self-check-checklist.md",
-          "type": "template",
-          "description": "dev-plan companion — self-check checklist"
-        },
-        {
-          "path": "harnesses/dev-wiki/skills/dev-plan/task-schema.md",
-          "type": "template",
-          "description": "dev-plan companion — task schema"
-        },
-        {
-          "path": "harnesses/dev-wiki/skills/dev-scan/SKILL.md",
-          "type": "template",
-          "description": "dev-scan skill — codebase architecture scanning"
-        },
-        {
-          "path": "harnesses/dev-wiki/skills/dev-scan/architecture-prompt.md",
-          "type": "template",
-          "description": "dev-scan companion — architecture prompt"
-        },
-        {
-          "path": "harnesses/dev-wiki/skills/dev-scan/content-hashing.md",
-          "type": "template",
-          "description": "dev-scan companion — content hashing"
-        },
-        {
-          "path": "harnesses/dev-wiki/skills/dev-scan/file-prompt.md",
-          "type": "template",
-          "description": "dev-scan companion — file prompt"
-        },
-        {
-          "path": "harnesses/dev-wiki/skills/dev-scan/module-prompt.md",
-          "type": "template",
-          "description": "dev-scan companion — module prompt"
-        },
-        {
-          "path": "harnesses/dev-wiki/skills/dev-scan/python-memory-checks.md",
-          "type": "template",
-          "description": "dev-scan companion — Python memory checks"
-        },
-        {
-          "path": "harnesses/dev-wiki/skills/dev-scan/python-scan-profile.md",
-          "type": "template",
-          "description": "dev-scan companion — Python scan profile"
-        },
-        {
-          "path": "harnesses/dev-wiki/skills/dev-scan/refresh-flow.md",
-          "type": "template",
-          "description": "dev-scan companion — refresh flow"
-        }
-      ]
-    }
-  ]
+﻿{
+    "version":  "1.0",
+    "lastUpdated":  "2026-06-05T00:00:00Z",
+    "harnesses":  [
+                      {
+                          "id":  "data-intensive",
+                          "name":  "Data Intensive Harness",
+                          "description":  "Optimized for large-scale data processing with caching strategies, batch processing templates, and performance monitoring.",
+                          "category":  "data",
+                          "tags":  [
+                                       "data",
+                                       "performance",
+                                       "processing",
+                                       "batch"
+                                   ],
+                          "dependencies":  [
+
+                                           ],
+                          "author":  "Harness Team",
+                          "version":  "1.0.0",
+                          "files":  [
+                                        {
+                                            "path":  "harnesses/data-intensive/config.json",
+                                            "type":  "config",
+                                            "description":  "Configuration template"
+                                        },
+                                        {
+                                            "path":  "harnesses/data-intensive/template.yaml",
+                                            "type":  "template",
+                                            "description":  "Harness template file"
+                                        },
+                                        {
+                                            "path":  "harnesses/data-intensive/README.md",
+                                            "type":  "documentation",
+                                            "description":  "Setup and usage instructions"
+                                        }
+                                    ]
+                      },
+                      {
+                          "id":  "migration",
+                          "name":  "Migration Harness",
+                          "description":  "For migrating between systems or versions with compatibility checks, data transformation utilities, and rollback procedures.",
+                          "category":  "migration",
+                          "tags":  [
+                                       "migration",
+                                       "compatibility",
+                                       "transformation",
+                                       "rollback"
+                                   ],
+                          "dependencies":  [
+
+                                           ],
+                          "author":  "Harness Team",
+                          "version":  "1.0.0",
+                          "files":  [
+                                        {
+                                            "path":  "harnesses/migration/config.json",
+                                            "type":  "config",
+                                            "description":  "Configuration template"
+                                        },
+                                        {
+                                            "path":  "harnesses/migration/template.yaml",
+                                            "type":  "template",
+                                            "description":  "Harness template file"
+                                        },
+                                        {
+                                            "path":  "harnesses/migration/README.md",
+                                            "type":  "documentation",
+                                            "description":  "Setup and usage instructions"
+                                        }
+                                    ]
+                      },
+                      {
+                          "id":  "dev-wiki",
+                          "name":  "Dev Wiki",
+                          "description":  "Phase-based project lifecycle system for Claude Code. Tracks phases, decisions, tasks, and knowledge across sessions using a local .dev-wiki/ directory. Includes skills, hooks, and rules for session continuity, TDD task tracking, and architecture scanning.",
+                          "category":  "workflow",
+                          "tags":  [
+                                       "claude-code",
+                                       "workflow",
+                                       "lifecycle",
+                                       "wiki",
+                                       "tasks",
+                                       "hooks",
+                                       "skills"
+                                   ],
+                          "dependencies":  [
+
+                                           ],
+                          "author":  "j-wanger (https://github.com/j-wanger/dev-wiki)",
+                          "version":  "2.0.0",
+                          "files":  [
+                                        {
+                                            "path":  "harnesses/dev-wiki/README.md",
+                                            "type":  "documentation",
+                                            "description":  "Setup and usage instructions"
+                                        },
+                                        {
+                                            "path":  "harnesses/dev-wiki/hooks/session-start.sh",
+                                            "type":  "template",
+                                            "description":  "SessionStart hook â€” loads dev-wiki context"
+                                        },
+                                        {
+                                            "path":  "harnesses/dev-wiki/hooks/session-stop.sh",
+                                            "type":  "template",
+                                            "description":  "Stop hook â€” writes session-end breadcrumb"
+                                        },
+                                        {
+                                            "path":  "harnesses/dev-wiki/hooks/dev-wiki-post-commit.sh",
+                                            "type":  "template",
+                                            "description":  "PostToolUse (Bash) hook â€” captures git commits"
+                                        },
+                                        {
+                                            "path":  "harnesses/dev-wiki/hooks/dev-wiki-scope-check.sh",
+                                            "type":  "template",
+                                            "description":  "PostToolUse (Write/Edit) hook â€” scope check against active task"
+                                        },
+                                        {
+                                            "path":  "harnesses/dev-wiki/hooks/stale-queue.sh",
+                                            "type":  "template",
+                                            "description":  "PostToolUse (Write/Edit) hook â€” tracks modified files for architecture refresh"
+                                        },
+                                        {
+                                            "path":  "harnesses/dev-wiki/rules/dev-wiki-hooks.md",
+                                            "type":  "config",
+                                            "description":  "Claude Code rule â€” TDD workflow, blocked-task escalation, escape hatches"
+                                        },
+                                        {
+                                            "path":  "harnesses/dev-wiki/skills/dev-wiki/SKILL.md",
+                                            "type":  "template",
+                                            "description":  "dev-wiki skill â€” router and shared companions"
+                                        },
+                                        {
+                                            "path":  "harnesses/dev-wiki/skills/dev-wiki/active-knowledge-spec.md",
+                                            "type":  "template",
+                                            "description":  "dev-wiki companion â€” active knowledge spec"
+                                        },
+                                        {
+                                            "path":  "harnesses/dev-wiki/skills/dev-wiki/architecture-template.md",
+                                            "type":  "template",
+                                            "description":  "dev-wiki companion â€” architecture template"
+                                        },
+                                        {
+                                            "path":  "harnesses/dev-wiki/skills/dev-wiki/claude-md-lifecycle.md",
+                                            "type":  "template",
+                                            "description":  "dev-wiki companion â€” CLAUDE.md lifecycle"
+                                        },
+                                        {
+                                            "path":  "harnesses/dev-wiki/skills/dev-wiki/decision-template.md",
+                                            "type":  "template",
+                                            "description":  "dev-wiki companion â€” decision template"
+                                        },
+                                        {
+                                            "path":  "harnesses/dev-wiki/skills/dev-wiki/journal-templates.md",
+                                            "type":  "template",
+                                            "description":  "dev-wiki companion â€” journal templates"
+                                        },
+                                        {
+                                            "path":  "harnesses/dev-wiki/skills/dev-wiki/phase-template.md",
+                                            "type":  "template",
+                                            "description":  "dev-wiki companion â€” phase template"
+                                        },
+                                        {
+                                            "path":  "harnesses/dev-wiki/skills/dev-wiki/size-budgets.md",
+                                            "type":  "template",
+                                            "description":  "dev-wiki companion â€” size budgets"
+                                        },
+                                        {
+                                            "path":  "harnesses/dev-wiki/skills/dev-wiki/slugification.md",
+                                            "type":  "template",
+                                            "description":  "dev-wiki companion â€” slugification"
+                                        },
+                                        {
+                                            "path":  "harnesses/dev-wiki/skills/dev-wiki/stale-queue-spec.md",
+                                            "type":  "template",
+                                            "description":  "dev-wiki companion â€” stale queue spec"
+                                        },
+                                        {
+                                            "path":  "harnesses/dev-wiki/skills/dev-wiki/state-template.md",
+                                            "type":  "template",
+                                            "description":  "dev-wiki companion â€” state template"
+                                        },
+                                        {
+                                            "path":  "harnesses/dev-wiki/skills/dev-wiki/working-knowledge-spec.md",
+                                            "type":  "template",
+                                            "description":  "dev-wiki companion â€” working knowledge spec"
+                                        },
+                                        {
+                                            "path":  "harnesses/dev-wiki/skills/dev-check/SKILL.md",
+                                            "type":  "template",
+                                            "description":  "dev-check skill â€” wiki integrity validation"
+                                        },
+                                        {
+                                            "path":  "harnesses/dev-wiki/skills/dev-debrief/SKILL.md",
+                                            "type":  "template",
+                                            "description":  "dev-debrief skill â€” session capture and review"
+                                        },
+                                        {
+                                            "path":  "harnesses/dev-wiki/skills/dev-debrief/active-knowledge-transition.md",
+                                            "type":  "template",
+                                            "description":  "dev-debrief companion â€” active knowledge transition"
+                                        },
+                                        {
+                                            "path":  "harnesses/dev-wiki/skills/dev-debrief/architecture-staleness-check.md",
+                                            "type":  "template",
+                                            "description":  "dev-debrief companion â€” architecture staleness check"
+                                        },
+                                        {
+                                            "path":  "harnesses/dev-wiki/skills/dev-debrief/claude-md-refresh.md",
+                                            "type":  "template",
+                                            "description":  "dev-debrief companion â€” CLAUDE.md refresh"
+                                        },
+                                        {
+                                            "path":  "harnesses/dev-wiki/skills/dev-debrief/debrief-finalization.md",
+                                            "type":  "template",
+                                            "description":  "dev-debrief companion â€” finalization flow"
+                                        },
+                                        {
+                                            "path":  "harnesses/dev-wiki/skills/dev-debrief/quick-debrief-flow.md",
+                                            "type":  "template",
+                                            "description":  "dev-debrief companion â€” quick debrief flow"
+                                        },
+                                        {
+                                            "path":  "harnesses/dev-wiki/skills/dev-debrief/retro-check.md",
+                                            "type":  "template",
+                                            "description":  "dev-debrief companion â€” retro check"
+                                        },
+                                        {
+                                            "path":  "harnesses/dev-wiki/skills/dev-debrief/review-gate.md",
+                                            "type":  "template",
+                                            "description":  "dev-debrief companion â€” review gate"
+                                        },
+                                        {
+                                            "path":  "harnesses/dev-wiki/skills/dev-debrief/reviewer-prompt.md",
+                                            "type":  "template",
+                                            "description":  "dev-debrief companion â€” reviewer prompt"
+                                        },
+                                        {
+                                            "path":  "harnesses/dev-wiki/skills/dev-init/SKILL.md",
+                                            "type":  "template",
+                                            "description":  "dev-init skill â€” project bootstrapping"
+                                        },
+                                        {
+                                            "path":  "harnesses/dev-wiki/skills/dev-init/init-scaffolding.md",
+                                            "type":  "template",
+                                            "description":  "dev-init companion â€” scaffolding logic"
+                                        },
+                                        {
+                                            "path":  "harnesses/dev-wiki/skills/dev-init/scaffold-claude-md.md",
+                                            "type":  "template",
+                                            "description":  "dev-init companion â€” CLAUDE.md scaffolding"
+                                        },
+                                        {
+                                            "path":  "harnesses/dev-wiki/skills/dev-init/templates/AGENTS.md",
+                                            "type":  "template",
+                                            "description":  "dev-init template â€” AGENTS.md session-start protocol"
+                                        },
+                                        {
+                                            "path":  "harnesses/dev-wiki/skills/dev-init/templates/project-CLAUDE.md",
+                                            "type":  "template",
+                                            "description":  "dev-init template â€” project CLAUDE.md starter"
+                                        },
+                                        {
+                                            "path":  "harnesses/dev-wiki/skills/dev-plan/SKILL.md",
+                                            "type":  "template",
+                                            "description":  "dev-plan skill â€” phase planning"
+                                        },
+                                        {
+                                            "path":  "harnesses/dev-wiki/skills/dev-plan/approach-reviewer-prompt.md",
+                                            "type":  "template",
+                                            "description":  "dev-plan companion â€” approach reviewer prompt"
+                                        },
+                                        {
+                                            "path":  "harnesses/dev-wiki/skills/dev-plan/compaction-anchors-spec.md",
+                                            "type":  "template",
+                                            "description":  "dev-plan companion â€” compaction anchors spec"
+                                        },
+                                        {
+                                            "path":  "harnesses/dev-wiki/skills/dev-plan/implementation-guide.md",
+                                            "type":  "template",
+                                            "description":  "dev-plan companion â€” implementation guide"
+                                        },
+                                        {
+                                            "path":  "harnesses/dev-wiki/skills/dev-plan/iterative-retrieval-spec.md",
+                                            "type":  "template",
+                                            "description":  "dev-plan companion â€” iterative retrieval spec"
+                                        },
+                                        {
+                                            "path":  "harnesses/dev-wiki/skills/dev-plan/plan-reviewer-prompt.md",
+                                            "type":  "template",
+                                            "description":  "dev-plan companion â€” plan reviewer prompt"
+                                        },
+                                        {
+                                            "path":  "harnesses/dev-wiki/skills/dev-plan/research-pause-spec.md",
+                                            "type":  "template",
+                                            "description":  "dev-plan companion â€” research pause spec"
+                                        },
+                                        {
+                                            "path":  "harnesses/dev-wiki/skills/dev-plan/self-check-checklist.md",
+                                            "type":  "template",
+                                            "description":  "dev-plan companion â€” self-check checklist"
+                                        },
+                                        {
+                                            "path":  "harnesses/dev-wiki/skills/dev-plan/task-schema.md",
+                                            "type":  "template",
+                                            "description":  "dev-plan companion â€” task schema"
+                                        },
+                                        {
+                                            "path":  "harnesses/dev-wiki/skills/dev-scan/SKILL.md",
+                                            "type":  "template",
+                                            "description":  "dev-scan skill â€” codebase architecture scanning"
+                                        },
+                                        {
+                                            "path":  "harnesses/dev-wiki/skills/dev-scan/architecture-prompt.md",
+                                            "type":  "template",
+                                            "description":  "dev-scan companion â€” architecture prompt"
+                                        },
+                                        {
+                                            "path":  "harnesses/dev-wiki/skills/dev-scan/content-hashing.md",
+                                            "type":  "template",
+                                            "description":  "dev-scan companion â€” content hashing"
+                                        },
+                                        {
+                                            "path":  "harnesses/dev-wiki/skills/dev-scan/file-prompt.md",
+                                            "type":  "template",
+                                            "description":  "dev-scan companion â€” file prompt"
+                                        },
+                                        {
+                                            "path":  "harnesses/dev-wiki/skills/dev-scan/module-prompt.md",
+                                            "type":  "template",
+                                            "description":  "dev-scan companion â€” module prompt"
+                                        },
+                                        {
+                                            "path":  "harnesses/dev-wiki/skills/dev-scan/python-memory-checks.md",
+                                            "type":  "template",
+                                            "description":  "dev-scan companion â€” Python memory checks"
+                                        },
+                                        {
+                                            "path":  "harnesses/dev-wiki/skills/dev-scan/python-scan-profile.md",
+                                            "type":  "template",
+                                            "description":  "dev-scan companion â€” Python scan profile"
+                                        },
+                                        {
+                                            "path":  "harnesses/dev-wiki/skills/dev-scan/refresh-flow.md",
+                                            "type":  "template",
+                                            "description":  "dev-scan companion â€” refresh flow"
+                                        }
+                                    ]
+                      },
+                      {
+                          "id":  "knowledge-wiki",
+                          "tags":  [
+                                       "claude-code",
+                                       "knowledge",
+                                       "knowledge-base",
+                                       "insights",
+                                       "CRUD",
+                                       "articles",
+                                       "structured",
+                                       "wiki"
+                                   ],
+                          "version":  "1.0.0",
+                          "category":  "knowledge",
+                          "description":  "A Claude Code skill suite for managing persistent knowledge bases. Provides a complete CRUD lifecycle for wiki-style knowledge stores: add insights and external material, absorb raw entries into polished articles, query across articles, and maintain structural health.",
+                          "author":  "j-wanger (https://github.com/j-wanger/knowledge-wiki)",
+                          "name":  "Knowledge Wiki",
+                          "files":  [
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/.gitignore",
+                                            "description":  ".gitignore",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/harness-entry.json",
+                                            "description":  "harness-entry.json",
+                                            "type":  "config"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/LICENSE",
+                                            "description":  "LICENSE",
+                                            "type":  "documentation"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/pyproject.toml",
+                                            "description":  "pyproject.toml",
+                                            "type":  "config"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/README.md",
+                                            "description":  "README.md",
+                                            "type":  "documentation"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/uv.lock",
+                                            "description":  "uv.lock",
+                                            "type":  "config"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/contrib/README.md",
+                                            "description":  "README.md",
+                                            "type":  "documentation"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/contrib/wiki-synthesize/analyst-prompt.md",
+                                            "description":  "analyst-prompt.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/contrib/wiki-synthesize/reviewer-prompt.md",
+                                            "description":  "reviewer-prompt.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/contrib/wiki-synthesize/SKILL.md",
+                                            "description":  "SKILL.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/contrib/wiki-synthesize/writer-prompt.md",
+                                            "description":  "writer-prompt.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/skills/knowledge-wiki/article-conventions.md",
+                                            "description":  "article-conventions.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/skills/knowledge-wiki/conversion-spec.md",
+                                            "description":  "conversion-spec.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/skills/knowledge-wiki/episodic-conventions.md",
+                                            "description":  "episodic-conventions.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/skills/knowledge-wiki/lifecycle-spec.md",
+                                            "description":  "lifecycle-spec.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/skills/knowledge-wiki/orchestration-template.md",
+                                            "description":  "orchestration-template.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/skills/knowledge-wiki/pipeline-preamble.md",
+                                            "description":  "pipeline-preamble.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/skills/knowledge-wiki/registry-schema.md",
+                                            "description":  "registry-schema.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/skills/knowledge-wiki/reviewer-checklist.md",
+                                            "description":  "reviewer-checklist.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/skills/knowledge-wiki/search-spec.md",
+                                            "description":  "search-spec.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/skills/knowledge-wiki/session-context.md",
+                                            "description":  "session-context.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/skills/knowledge-wiki/SKILL.md",
+                                            "description":  "SKILL.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/skills/knowledge-wiki/step-0-template.md",
+                                            "description":  "step-0-template.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/skills/knowledge-wiki/tier-spec.md",
+                                            "description":  "tier-spec.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/skills/knowledge-wiki/domain-profiles/aml-compliance.md",
+                                            "description":  "aml-compliance.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/skills/knowledge-wiki/domain-profiles/general.md",
+                                            "description":  "general.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/skills/knowledge-wiki/domain-profiles/machine-learning.md",
+                                            "description":  "machine-learning.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/skills/knowledge-wiki/domain-profiles/trading.md",
+                                            "description":  "trading.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/skills/wiki-absorb/analyst-prompt.md",
+                                            "description":  "analyst-prompt.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/skills/wiki-absorb/reviewer-prompt.md",
+                                            "description":  "reviewer-prompt.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/skills/wiki-absorb/SKILL.md",
+                                            "description":  "SKILL.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/skills/wiki-absorb/verifier-prompt.md",
+                                            "description":  "verifier-prompt.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/skills/wiki-absorb/writer-prompt.md",
+                                            "description":  "writer-prompt.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/skills/wiki-add/analyst-prompt.md",
+                                            "description":  "analyst-prompt.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/skills/wiki-add/reviewer-prompt.md",
+                                            "description":  "reviewer-prompt.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/skills/wiki-add/SKILL.md",
+                                            "description":  "SKILL.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/skills/wiki-add/writer-prompt.md",
+                                            "description":  "writer-prompt.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/skills/wiki-bootstrap/analyst-prompt.md",
+                                            "description":  "analyst-prompt.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/skills/wiki-bootstrap/research-agent-prompt.md",
+                                            "description":  "research-agent-prompt.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/skills/wiki-bootstrap/research-loop-spec.md",
+                                            "description":  "research-loop-spec.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/skills/wiki-bootstrap/reviewer-prompt.md",
+                                            "description":  "reviewer-prompt.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/skills/wiki-bootstrap/SKILL.md",
+                                            "description":  "SKILL.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/skills/wiki-bootstrap/writer-prompt.md",
+                                            "description":  "writer-prompt.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/skills/wiki-consolidate/analyst-prompt.md",
+                                            "description":  "analyst-prompt.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/skills/wiki-consolidate/consolidate.py",
+                                            "description":  "consolidate.py",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/skills/wiki-consolidate/reviewer-prompt.md",
+                                            "description":  "reviewer-prompt.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/skills/wiki-consolidate/SKILL.md",
+                                            "description":  "SKILL.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/skills/wiki-consolidate/writer-prompt.md",
+                                            "description":  "writer-prompt.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/skills/wiki-health/dashboard-spec.md",
+                                            "description":  "dashboard-spec.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/skills/wiki-health/empirical-anchor-spec.md",
+                                            "description":  "empirical-anchor-spec.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/skills/wiki-health/SKILL.md",
+                                            "description":  "SKILL.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/skills/wiki-index/convert.py",
+                                            "description":  "convert.py",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/skills/wiki-index/indexer.py",
+                                            "description":  "indexer.py",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/skills/wiki-index/requirements-convert.txt",
+                                            "description":  "requirements-convert.txt",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/skills/wiki-index/requirements.txt",
+                                            "description":  "requirements.txt",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/skills/wiki-index/search.py",
+                                            "description":  "search.py",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/skills/wiki-index/SKILL.md",
+                                            "description":  "SKILL.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/skills/wiki-index/wikilib.py",
+                                            "description":  "wikilib.py",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/skills/wiki-init/analyst-prompt.md",
+                                            "description":  "analyst-prompt.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/skills/wiki-init/reviewer-prompt.md",
+                                            "description":  "reviewer-prompt.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/skills/wiki-init/SKILL.md",
+                                            "description":  "SKILL.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/skills/wiki-init/writer-prompt.md",
+                                            "description":  "writer-prompt.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/skills/wiki-query/analyst-prompt.md",
+                                            "description":  "analyst-prompt.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/skills/wiki-query/reviewer-prompt.md",
+                                            "description":  "reviewer-prompt.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/skills/wiki-query/SKILL.md",
+                                            "description":  "SKILL.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/skills/wiki-query/writer-prompt.md",
+                                            "description":  "writer-prompt.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/skills/wiki-registry/SKILL.md",
+                                            "description":  "SKILL.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/skills/wiki-reorg/analyst-prompt.md",
+                                            "description":  "analyst-prompt.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/skills/wiki-reorg/reviewer-prompt.md",
+                                            "description":  "reviewer-prompt.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/skills/wiki-reorg/SKILL.md",
+                                            "description":  "SKILL.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/skills/wiki-reorg/writer-prompt.md",
+                                            "description":  "writer-prompt.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/tests/conftest.py",
+                                            "description":  "conftest.py",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/tests/test_consolidate.py",
+                                            "description":  "test_consolidate.py",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/tests/test_convert.py",
+                                            "description":  "test_convert.py",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/tests/test_indexer.py",
+                                            "description":  "test_indexer.py",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/tests/test_search.py",
+                                            "description":  "test_search.py",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/tests/test_wikilib.py",
+                                            "description":  "test_wikilib.py",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/tests/fixtures/consolidation/expectations.yaml",
+                                            "description":  "expectations.yaml",
+                                            "type":  "config"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/tests/fixtures/consolidation/index.md",
+                                            "description":  "index.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/tests/fixtures/consolidation/schema.md",
+                                            "description":  "schema.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/tests/fixtures/consolidation/articles/api-rate-limiting.md",
+                                            "description":  "api-rate-limiting.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/tests/fixtures/consolidation/articles/caching-strategies.md",
+                                            "description":  "caching-strategies.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/tests/fixtures/consolidation/episodic/2026-04-20T10-00-00-microservice-observability.md",
+                                            "description":  "2026-04-20T10-00-00-microservice-observability.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/tests/fixtures/consolidation/episodic/2026-04-20T11-00-00-database-migrations.md",
+                                            "description":  "2026-04-20T11-00-00-database-migrations.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/tests/fixtures/consolidation/episodic/2026-04-20T12-00-00-cicd-optimization.md",
+                                            "description":  "2026-04-20T12-00-00-cicd-optimization.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/tests/fixtures/consolidation/episodic/2026-04-20T13-00-00-web-caching-research.md",
+                                            "description":  "2026-04-20T13-00-00-web-caching-research.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/tests/fixtures/consolidation/episodic/2026-04-20T14-00-00-advanced-rate-limiting.md",
+                                            "description":  "2026-04-20T14-00-00-advanced-rate-limiting.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/tests/fixtures/search/index.md",
+                                            "description":  "index.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/tests/fixtures/search/queries.yaml",
+                                            "description":  "queries.yaml",
+                                            "type":  "config"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/tests/fixtures/search/schema.md",
+                                            "description":  "schema.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/tests/fixtures/search/articles/concepts/database-transactions.md",
+                                            "description":  "database-transactions.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/tests/fixtures/search/articles/concepts/dns-resolution.md",
+                                            "description":  "dns-resolution.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/tests/fixtures/search/articles/concepts/full-text-search-engines.md",
+                                            "description":  "full-text-search-engines.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/tests/fixtures/search/articles/concepts/gradient-descent-optimization.md",
+                                            "description":  "gradient-descent-optimization.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/tests/fixtures/search/articles/concepts/neural-network-basics.md",
+                                            "description":  "neural-network-basics.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/tests/fixtures/search/articles/concepts/oauth2-flows.md",
+                                            "description":  "oauth2-flows.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/tests/fixtures/search/articles/concepts/sql-indexing-fundamentals.md",
+                                            "description":  "sql-indexing-fundamentals.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/tests/fixtures/search/articles/concepts/tcp-ip-fundamentals.md",
+                                            "description":  "tcp-ip-fundamentals.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/tests/fixtures/search/articles/concepts/tls-handshake.md",
+                                            "description":  "tls-handshake.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/tests/fixtures/search/articles/concepts/transformer-architecture.md",
+                                            "description":  "transformer-architecture.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/tests/fixtures/search/articles/concepts/vector-embeddings-overview.md",
+                                            "description":  "vector-embeddings-overview.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/tests/fixtures/search/articles/decisions/hybrid-search-vs-keyword.md",
+                                            "description":  "hybrid-search-vs-keyword.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/tests/fixtures/search/articles/decisions/sqlite-over-dedicated-vector-db.md",
+                                            "description":  "sqlite-over-dedicated-vector-db.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/tests/fixtures/search/articles/patterns/caching-strategies.md",
+                                            "description":  "caching-strategies.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/tests/fixtures/search/articles/patterns/connection-pooling.md",
+                                            "description":  "connection-pooling.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/tests/fixtures/search/articles/patterns/data-pipeline-patterns.md",
+                                            "description":  "data-pipeline-patterns.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/tests/fixtures/search/articles/patterns/load-balancing.md",
+                                            "description":  "load-balancing.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/tests/fixtures/search/articles/patterns/model-serving-patterns.md",
+                                            "description":  "model-serving-patterns.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/tests/fixtures/search/articles/patterns/rate-limiting.md",
+                                            "description":  "rate-limiting.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/tests/fixtures/search/articles/patterns/zero-trust-architecture.md",
+                                            "description":  "zero-trust-architecture.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/tests/fixtures/search/episodic/2026-03-15-sqlite-wal-investigation.md",
+                                            "description":  "2026-03-15-sqlite-wal-investigation.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/tests/fixtures/search/episodic/2026-03-18-embedding-model-comparison.md",
+                                            "description":  "2026-03-18-embedding-model-comparison.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/tests/fixtures/staleness/expectations.yaml",
+                                            "description":  "expectations.yaml",
+                                            "type":  "config"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/tests/fixtures/staleness/index.md",
+                                            "description":  "index.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/tests/fixtures/staleness/schema.md",
+                                            "description":  "schema.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/tests/fixtures/staleness/articles/concepts/fast-moving-reviewed-article.md",
+                                            "description":  "fast-moving-reviewed-article.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/tests/fixtures/staleness/articles/concepts/old-verified-article.md",
+                                            "description":  "old-verified-article.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/tests/fixtures/staleness/articles/concepts/recent-verified-article.md",
+                                            "description":  "recent-verified-article.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/tests/fixtures/tier-lifecycle/invalid-status.md",
+                                            "description":  "invalid-status.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/tests/fixtures/tier-lifecycle/missing-tier.md",
+                                            "description":  "missing-tier.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/tests/fixtures/tier-lifecycle/stale-article.md",
+                                            "description":  "stale-article.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/tests/fixtures/tier-lifecycle/valid-episodic.md",
+                                            "description":  "valid-episodic.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/tests/fixtures/tier-lifecycle/valid-private-draft.md",
+                                            "description":  "valid-private-draft.md",
+                                            "type":  "template"
+                                        },
+                                        {
+                                            "path":  "harnesses/knowledge-wiki/tests/fixtures/tier-lifecycle/valid-public-verified.md",
+                                            "description":  "valid-public-verified.md",
+                                            "type":  "template"
+                                        }
+                                    ],
+                          "dependencies":  [
+
+                                           ]
+                      }
+                  ]
 }

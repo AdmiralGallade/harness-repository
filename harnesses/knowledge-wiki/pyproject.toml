@@ -1,0 +1,18 @@
+[project]
+name = "knowledge-wiki"
+version = "0.1.0"
+requires-python = ">=3.11"
+description = "Claude Code skill suite for managing persistent knowledge bases"
+
+[dependency-groups]
+dev = ["pytest>=8.0", "pytest-cov>=6.0", "xxhash>=3.0"]
+vectors = ["fastembed>=0.4", "sqlite-vec>=0.1.9", "xxhash>=3.0"]
+convert = ["kreuzberg>=4.9"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["skills/wiki-index", "skills/wiki-consolidate"]
+
+[tool.coverage.run]
+source = ["skills/wiki-index", "skills/wiki-consolidate"]
+omit = ["*/__pycache__/*"]

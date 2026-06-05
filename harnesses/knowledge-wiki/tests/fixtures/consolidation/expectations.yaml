@@ -1,0 +1,25 @@
+# Expected classifications for consolidation pipeline testing
+# Used by Task 7 validation
+
+entries:
+  - filename: "2026-04-20T10-00-00-microservice-observability.md"
+    expected: candidate
+    reason: "Novel topic — no existing article on observability"
+
+  - filename: "2026-04-20T11-00-00-database-migrations.md"
+    expected: candidate
+    reason: "Novel topic — no existing article on migrations"
+
+  - filename: "2026-04-20T12-00-00-cicd-optimization.md"
+    expected: candidate
+    reason: "Novel topic — no existing article on CI/CD"
+
+  - filename: "2026-04-20T13-00-00-web-caching-research.md"
+    expected: high_similarity
+    matched_article: "caching-strategies"
+    reason: "Heavy overlap with caching-strategies article"
+
+  - filename: "2026-04-20T14-00-00-advanced-rate-limiting.md"
+    expected: high_similarity
+    matched_article: "api-rate-limiting"
+    reason: "Overlaps with rate-limiting article but adds distributed/adaptive content"

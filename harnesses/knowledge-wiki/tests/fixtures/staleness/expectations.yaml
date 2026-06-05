@@ -1,0 +1,31 @@
+# Expected staleness classifications for fixture articles
+# Used to validate wiki-stale and wiki-lint check 13 alignment
+# Reference date: 2026-04-26
+
+articles:
+  old-verified-article:
+    status: verified
+    updated: "2025-10-01"
+    tags: [general]
+    applicable_threshold: 90  # default_days (no tag override)
+    days_since_update: 208    # approximate as of 2026-04-26
+    expected_stale: true
+    reason: "208 days > 90-day default threshold"
+
+  recent-verified-article:
+    status: verified
+    updated: "2026-04-20"
+    tags: [general]
+    applicable_threshold: 90  # default_days (no tag override)
+    days_since_update: 6      # approximate as of 2026-04-26
+    expected_stale: false
+    reason: "6 days < 90-day default threshold"
+
+  fast-moving-reviewed-article:
+    status: reviewed
+    updated: "2026-03-01"
+    tags: [fast-moving]
+    applicable_threshold: 30  # tag override: fast-moving → 30 days
+    days_since_update: 56     # approximate as of 2026-04-26
+    expected_stale: true
+    reason: "56 days > 30-day tag-specific override (shortest wins)"
