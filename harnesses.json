@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "lastUpdated": "2026-05-28T00:00:00Z",
+  "lastUpdated": "2026-06-05T00:00:00Z",
   "harnesses": [
     {
       "id": "data-intensive",
@@ -53,6 +53,274 @@
           "path": "harnesses/migration/README.md",
           "type": "documentation",
           "description": "Setup and usage instructions"
+        }
+      ]
+    }
+  ,
+    {
+      "id": "dev-wiki",
+      "name": "Dev Wiki",
+      "description": "Phase-based project lifecycle system for Claude Code. Tracks phases, decisions, tasks, and knowledge across sessions using a local .dev-wiki/ directory. Includes skills, hooks, and rules for session continuity, TDD task tracking, and architecture scanning.",
+      "category": "workflow",
+      "tags": ["claude-code", "workflow", "lifecycle", "wiki", "tasks", "hooks", "skills"],
+      "dependencies": [],
+      "author": "j-wanger (https://github.com/j-wanger/dev-wiki)",
+      "version": "2.0.0",
+      "files": [
+        {
+          "path": "harnesses/dev-wiki/README.md",
+          "type": "documentation",
+          "description": "Setup and usage instructions"
+        },
+        {
+          "path": "harnesses/dev-wiki/hooks/session-start.sh",
+          "type": "template",
+          "description": "SessionStart hook — loads dev-wiki context"
+        },
+        {
+          "path": "harnesses/dev-wiki/hooks/session-stop.sh",
+          "type": "template",
+          "description": "Stop hook — writes session-end breadcrumb"
+        },
+        {
+          "path": "harnesses/dev-wiki/hooks/dev-wiki-post-commit.sh",
+          "type": "template",
+          "description": "PostToolUse (Bash) hook — captures git commits"
+        },
+        {
+          "path": "harnesses/dev-wiki/hooks/dev-wiki-scope-check.sh",
+          "type": "template",
+          "description": "PostToolUse (Write/Edit) hook — scope check against active task"
+        },
+        {
+          "path": "harnesses/dev-wiki/hooks/stale-queue.sh",
+          "type": "template",
+          "description": "PostToolUse (Write/Edit) hook — tracks modified files for architecture refresh"
+        },
+        {
+          "path": "harnesses/dev-wiki/rules/dev-wiki-hooks.md",
+          "type": "config",
+          "description": "Claude Code rule — TDD workflow, blocked-task escalation, escape hatches"
+        },
+        {
+          "path": "harnesses/dev-wiki/skills/dev-wiki/SKILL.md",
+          "type": "template",
+          "description": "dev-wiki skill — router and shared companions"
+        },
+        {
+          "path": "harnesses/dev-wiki/skills/dev-wiki/active-knowledge-spec.md",
+          "type": "template",
+          "description": "dev-wiki companion — active knowledge spec"
+        },
+        {
+          "path": "harnesses/dev-wiki/skills/dev-wiki/architecture-template.md",
+          "type": "template",
+          "description": "dev-wiki companion — architecture template"
+        },
+        {
+          "path": "harnesses/dev-wiki/skills/dev-wiki/claude-md-lifecycle.md",
+          "type": "template",
+          "description": "dev-wiki companion — CLAUDE.md lifecycle"
+        },
+        {
+          "path": "harnesses/dev-wiki/skills/dev-wiki/decision-template.md",
+          "type": "template",
+          "description": "dev-wiki companion — decision template"
+        },
+        {
+          "path": "harnesses/dev-wiki/skills/dev-wiki/journal-templates.md",
+          "type": "template",
+          "description": "dev-wiki companion — journal templates"
+        },
+        {
+          "path": "harnesses/dev-wiki/skills/dev-wiki/phase-template.md",
+          "type": "template",
+          "description": "dev-wiki companion — phase template"
+        },
+        {
+          "path": "harnesses/dev-wiki/skills/dev-wiki/size-budgets.md",
+          "type": "template",
+          "description": "dev-wiki companion — size budgets"
+        },
+        {
+          "path": "harnesses/dev-wiki/skills/dev-wiki/slugification.md",
+          "type": "template",
+          "description": "dev-wiki companion — slugification"
+        },
+        {
+          "path": "harnesses/dev-wiki/skills/dev-wiki/stale-queue-spec.md",
+          "type": "template",
+          "description": "dev-wiki companion — stale queue spec"
+        },
+        {
+          "path": "harnesses/dev-wiki/skills/dev-wiki/state-template.md",
+          "type": "template",
+          "description": "dev-wiki companion — state template"
+        },
+        {
+          "path": "harnesses/dev-wiki/skills/dev-wiki/working-knowledge-spec.md",
+          "type": "template",
+          "description": "dev-wiki companion — working knowledge spec"
+        },
+        {
+          "path": "harnesses/dev-wiki/skills/dev-check/SKILL.md",
+          "type": "template",
+          "description": "dev-check skill — wiki integrity validation"
+        },
+        {
+          "path": "harnesses/dev-wiki/skills/dev-debrief/SKILL.md",
+          "type": "template",
+          "description": "dev-debrief skill — session capture and review"
+        },
+        {
+          "path": "harnesses/dev-wiki/skills/dev-debrief/active-knowledge-transition.md",
+          "type": "template",
+          "description": "dev-debrief companion — active knowledge transition"
+        },
+        {
+          "path": "harnesses/dev-wiki/skills/dev-debrief/architecture-staleness-check.md",
+          "type": "template",
+          "description": "dev-debrief companion — architecture staleness check"
+        },
+        {
+          "path": "harnesses/dev-wiki/skills/dev-debrief/claude-md-refresh.md",
+          "type": "template",
+          "description": "dev-debrief companion — CLAUDE.md refresh"
+        },
+        {
+          "path": "harnesses/dev-wiki/skills/dev-debrief/debrief-finalization.md",
+          "type": "template",
+          "description": "dev-debrief companion — finalization flow"
+        },
+        {
+          "path": "harnesses/dev-wiki/skills/dev-debrief/quick-debrief-flow.md",
+          "type": "template",
+          "description": "dev-debrief companion — quick debrief flow"
+        },
+        {
+          "path": "harnesses/dev-wiki/skills/dev-debrief/retro-check.md",
+          "type": "template",
+          "description": "dev-debrief companion — retro check"
+        },
+        {
+          "path": "harnesses/dev-wiki/skills/dev-debrief/review-gate.md",
+          "type": "template",
+          "description": "dev-debrief companion — review gate"
+        },
+        {
+          "path": "harnesses/dev-wiki/skills/dev-debrief/reviewer-prompt.md",
+          "type": "template",
+          "description": "dev-debrief companion — reviewer prompt"
+        },
+        {
+          "path": "harnesses/dev-wiki/skills/dev-init/SKILL.md",
+          "type": "template",
+          "description": "dev-init skill — project bootstrapping"
+        },
+        {
+          "path": "harnesses/dev-wiki/skills/dev-init/init-scaffolding.md",
+          "type": "template",
+          "description": "dev-init companion — scaffolding logic"
+        },
+        {
+          "path": "harnesses/dev-wiki/skills/dev-init/scaffold-claude-md.md",
+          "type": "template",
+          "description": "dev-init companion — CLAUDE.md scaffolding"
+        },
+        {
+          "path": "harnesses/dev-wiki/skills/dev-init/templates/AGENTS.md",
+          "type": "template",
+          "description": "dev-init template — AGENTS.md session-start protocol"
+        },
+        {
+          "path": "harnesses/dev-wiki/skills/dev-init/templates/project-CLAUDE.md",
+          "type": "template",
+          "description": "dev-init template — project CLAUDE.md starter"
+        },
+        {
+          "path": "harnesses/dev-wiki/skills/dev-plan/SKILL.md",
+          "type": "template",
+          "description": "dev-plan skill — phase planning"
+        },
+        {
+          "path": "harnesses/dev-wiki/skills/dev-plan/approach-reviewer-prompt.md",
+          "type": "template",
+          "description": "dev-plan companion — approach reviewer prompt"
+        },
+        {
+          "path": "harnesses/dev-wiki/skills/dev-plan/compaction-anchors-spec.md",
+          "type": "template",
+          "description": "dev-plan companion — compaction anchors spec"
+        },
+        {
+          "path": "harnesses/dev-wiki/skills/dev-plan/implementation-guide.md",
+          "type": "template",
+          "description": "dev-plan companion — implementation guide"
+        },
+        {
+          "path": "harnesses/dev-wiki/skills/dev-plan/iterative-retrieval-spec.md",
+          "type": "template",
+          "description": "dev-plan companion — iterative retrieval spec"
+        },
+        {
+          "path": "harnesses/dev-wiki/skills/dev-plan/plan-reviewer-prompt.md",
+          "type": "template",
+          "description": "dev-plan companion — plan reviewer prompt"
+        },
+        {
+          "path": "harnesses/dev-wiki/skills/dev-plan/research-pause-spec.md",
+          "type": "template",
+          "description": "dev-plan companion — research pause spec"
+        },
+        {
+          "path": "harnesses/dev-wiki/skills/dev-plan/self-check-checklist.md",
+          "type": "template",
+          "description": "dev-plan companion — self-check checklist"
+        },
+        {
+          "path": "harnesses/dev-wiki/skills/dev-plan/task-schema.md",
+          "type": "template",
+          "description": "dev-plan companion — task schema"
+        },
+        {
+          "path": "harnesses/dev-wiki/skills/dev-scan/SKILL.md",
+          "type": "template",
+          "description": "dev-scan skill — codebase architecture scanning"
+        },
+        {
+          "path": "harnesses/dev-wiki/skills/dev-scan/architecture-prompt.md",
+          "type": "template",
+          "description": "dev-scan companion — architecture prompt"
+        },
+        {
+          "path": "harnesses/dev-wiki/skills/dev-scan/content-hashing.md",
+          "type": "template",
+          "description": "dev-scan companion — content hashing"
+        },
+        {
+          "path": "harnesses/dev-wiki/skills/dev-scan/file-prompt.md",
+          "type": "template",
+          "description": "dev-scan companion — file prompt"
+        },
+        {
+          "path": "harnesses/dev-wiki/skills/dev-scan/module-prompt.md",
+          "type": "template",
+          "description": "dev-scan companion — module prompt"
+        },
+        {
+          "path": "harnesses/dev-wiki/skills/dev-scan/python-memory-checks.md",
+          "type": "template",
+          "description": "dev-scan companion — Python memory checks"
+        },
+        {
+          "path": "harnesses/dev-wiki/skills/dev-scan/python-scan-profile.md",
+          "type": "template",
+          "description": "dev-scan companion — Python scan profile"
+        },
+        {
+          "path": "harnesses/dev-wiki/skills/dev-scan/refresh-flow.md",
+          "type": "template",
+          "description": "dev-scan companion — refresh flow"
         }
       ]
     }
