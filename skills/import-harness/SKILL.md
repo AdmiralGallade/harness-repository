@@ -6,6 +6,33 @@ Import an external Claude Code harness into this repository and register it in `
 
 Use this skill when the user wants to add a new harness to the harness repository from a GitHub repository or a local directory. Phrases like "add harness from", "import harness", "add this repo as a harness" should trigger it.
 
+---
+
+## Helper functions
+
+Define these once at the top of every session — all subsequent steps use them.
+
+```powershell
+# Detect the harness repository root by walking up from the current directory
+# looking for harnesses.json, then falling back to git rev-parse.
+function Get-HarnessRepoRoot {
+    $dir = (Get-Location).Path
+    while ($dir) {
+        if (Test-Path (Join-Path $dir "harnesses.json")) { return $dir }
+        $parent = Split-Path $dir -Parent
+        if ($parent -eq $dir) { break }
+        $dir = $parent
+    }
+    try {
+        $gitRoot = git rev-parse --show-toplevel 2>$null
+        if ($gitRoot -and (Test-Path (Join-Path $gitRoot "harnesses.json"))) { return $gitRoot }
+    } catch {}
+    throw "Could not locate harness repository root. Run from within the harness-repository directory."
+}
+```
+
+---
+
 ## Steps
 
 ### 1 — Gather inputs
@@ -31,7 +58,7 @@ function Import-HarnessFromGitHub {
     )
 
     # Derive a safe folder name from the URL
-    $repoSlug = ($GitHubUrl.TrimEnd('/') -split '/')[-1]   # last path segment
+    $repoSlug = ($GitHubUrl.TrimEnd('/') -split '/')[-1]
     $tmpDir   = Join-Path $env:TEMP "harness-import-$repoSlug"
 
     # Remove any stale clone
@@ -74,34 +101,34 @@ if (Test-Path $tmpDir) {
 
 ### 2 — Locate the repository root
 
-The harness repository lives at:
-```
-C:\Users\mailf\OneDrive\Documents\GitHub\harness-repository\harness-repository\
+```powershell
+$root = Get-HarnessRepoRoot
+Write-Host "Repository root: $root"
 ```
 
 The target harness folder will be:
 ```
-harnesses/<harness-id>/
+<root>/harnesses/<harness-id>/
 ```
 
 ### 3 — Copy source files
 
-Copy the entire source directory into `harnesses/<harness-id>/` preserving all subdirectory structure. Use PowerShell:
+Copy the entire source directory into `harnesses/<harness-id>/` preserving all subdirectory structure:
 
 ```powershell
 $src = "<local-source-path>"
-$dst = "C:\Users\mailf\OneDrive\Documents\GitHub\harness-repository\harness-repository\harnesses\<harness-id>"
+$dst = Join-Path $root "harnesses\<harness-id>"
 New-Item -ItemType Directory -Force -Path $dst | Out-Null
 Get-ChildItem $src -Recurse | ForEach-Object {
-  $rel = $_.FullName.Substring($src.Length).TrimStart('\')
-  $target = Join-Path $dst $rel
-  if ($_.PSIsContainer) {
-    New-Item -ItemType Directory -Force -Path $target | Out-Null
-  } else {
-    $targetDir = Split-Path $target
-    if (-not (Test-Path $targetDir)) { New-Item -ItemType Directory -Force -Path $targetDir | Out-Null }
-    Copy-Item $_.FullName -Destination $target -Force
-  }
+    $rel = $_.FullName.Substring($src.Length).TrimStart('\')
+    $target = Join-Path $dst $rel
+    if ($_.PSIsContainer) {
+        New-Item -ItemType Directory -Force -Path $target | Out-Null
+    } else {
+        $targetDir = Split-Path $target
+        if (-not (Test-Path $targetDir)) { New-Item -ItemType Directory -Force -Path $targetDir | Out-Null }
+        Copy-Item $_.FullName -Destination $target -Force
+    }
 }
 ```
 
@@ -128,13 +155,12 @@ Enumerate all files in `harnesses/<harness-id>/` recursively and build a `files[
   - `"template"` — everything else (scripts, skill files, hook scripts, etc.)
 - `description`: derive a short description from the filename and parent directory (e.g. `"skills/dev-check/SKILL.md"` → `"dev-check skill"`)
 
-Use PowerShell to enumerate:
-
 ```powershell
-$base = "C:\Users\mailf\OneDrive\Documents\GitHub\harness-repository\harness-repository\harnesses\<harness-id>"
+$harnessId = "<harness-id>"
+$base = Join-Path $root "harnesses\$harnessId"
 Get-ChildItem $base -Recurse -File | ForEach-Object {
-  $rel = $_.FullName.Substring($base.Length + 1).Replace('\', '/')
-  "harnesses/<harness-id>/$rel"
+    $rel = $_.FullName.Substring($base.Length + 1).Replace('\', '/')
+    "harnesses/$harnessId/$rel"
 }
 ```
 
@@ -161,7 +187,10 @@ Also update `"lastUpdated"` to today's date in ISO 8601 format (`YYYY-MM-DDT00:0
 Validate the JSON after writing:
 
 ```powershell
-Get-Content "...harnesses.json" -Raw | ConvertFrom-Json | Select-Object -ExpandProperty harnesses | Select-Object id, name, @{N='files';E={$_.files.Count}}
+$repoJson = Join-Path $root "harnesses.json"
+Get-Content $repoJson -Raw | ConvertFrom-Json |
+    Select-Object -ExpandProperty harnesses |
+    Select-Object id, name, @{N='files';E={$_.files.Count}}
 ```
 
 ### 7 — Security scan
@@ -169,9 +198,8 @@ Get-Content "...harnesses.json" -Raw | ConvertFrom-Json | Select-Object -ExpandP
 After registering the harness, automatically run the security scanner across all `.md` files in the new harness folder. This catches harmful content before it is committed.
 
 ```powershell
-$root      = "C:\Users\mailf\OneDrive\Documents\GitHub\harness-repository\harness-repository"
-$harnessId = "<harness-id>"   # replace with the actual id
-$scanRoot  = "$root\harnesses\$harnessId"
+$harnessId = "<harness-id>"
+$scanRoot  = Join-Path $root "harnesses\$harnessId"
 
 $files = Get-ChildItem $scanRoot -Recurse -Filter "*.md" -File
 Write-Host "`nRunning security scan on $($files.Count) files in harnesses/$harnessId ...`n"
@@ -224,50 +252,48 @@ foreach ($file in $files) {
     }
 }
 
-# ── Print report ──────────────────────────────────────────────────────────────
+# ── Write report ──────────────────────────────────────────────────────────────
 $order  = @{ CRITICAL=0; HIGH=1; MEDIUM=2; LOW=3 }
 $sorted = $findings | Sort-Object { $order[$_.Severity] }, File, Line
 
-$reportPath = "$root\harnesses\$harnessId\SCAN-REPORT.md"
-$lines = @()
-$lines += "# Security Scan Report — $harnessId"
-$lines += ""
-$lines += "Scanned: $(Get-Date -Format 'yyyy-MM-dd HH:mm')  |  Files: $($files.Count)  |  Findings: $($sorted.Count)"
-$lines += ""
+$reportPath = Join-Path $root "harnesses\$harnessId\SCAN-REPORT.md"
+$report = @()
+$report += "# Security Scan Report — $harnessId"
+$report += ""
+$report += "Scanned: $(Get-Date -Format 'yyyy-MM-dd HH:mm')  |  Files: $($files.Count)  |  Findings: $($sorted.Count)"
+$report += ""
 
 if ($sorted.Count -eq 0) {
     Write-Host "✅  No harmful content detected across $($files.Count) files." -ForegroundColor Green
-    $lines += "## ✅ Clean"
-    $lines += ""
-    $lines += "No harmful content detected."
+    $report += "## ✅ Clean"
+    $report += ""
+    $report += "No harmful content detected."
 } else {
     $c = ($sorted|Where-Object Severity -eq 'CRITICAL').Count
     $h = ($sorted|Where-Object Severity -eq 'HIGH').Count
     $m = ($sorted|Where-Object Severity -eq 'MEDIUM').Count
     Write-Host "⚠️  $($sorted.Count) finding(s) — CRITICAL:$c  HIGH:$h  MEDIUM:$m" -ForegroundColor Yellow
-    $lines += "## ⚠️ Findings"
-    $lines += ""
-    $lines += "| Severity | Rule | Category | File | Line | Content |"
-    $lines += "|----------|------|----------|------|------|---------|"
+    $report += "## ⚠️ Findings"
+    $report += ""
+    $report += "| Severity | Rule | Category | File | Line | Content |"
+    $report += "|----------|------|----------|------|------|---------|"
     foreach ($f in $sorted) {
-        $escaped = $f.Content -replace '\|', '\|'
-        $lines += "| $($f.Severity) | $($f.Id) | $($f.Category) | ``$($f.File)`` | $($f.Line) | $escaped |"
-        Write-Host "[$($f.Severity)] $($f.Id) | $($f.File):$($f.Line)" -ForegroundColor $(if($f.Severity -eq 'CRITICAL'){'Red'}elseif($f.Severity -eq 'HIGH'){'DarkYellow'}else{'Cyan'})
+        $esc = $f.Content -replace '\|', '\|'
+        $report += "| $($f.Severity) | $($f.Id) | $($f.Category) | ``$($f.File)`` | $($f.Line) | $esc |"
+        Write-Host "[$($f.Severity)] $($f.Id) | $($f.File):$($f.Line)"
         Write-Host "  $($f.Content)"
     }
-    $lines += ""
-    $lines += "## Next steps"
-    $lines += ""
-    $lines += "- Review each finding and determine if it is a genuine issue or a false positive."
-    $lines += "- For false positives, add ``<!-- scan-suppress: <ID> reason: ... -->`` on the flagged line."
-    $lines += "- For genuine threats, remove the harness or quarantine the file (see ``skills/scan-harnesses/SKILL.md`` Step 5)."
+    $report += ""
+    $report += "## Next steps"
+    $report += ""
+    $report += "- Review each finding. Confirm whether it is a genuine issue or a false positive."
+    $report += "- False positive: add ``<!-- scan-suppress: <ID> reason: ... -->`` on the flagged line."
+    $report += "- Genuine threat: remove the harness or quarantine the file (see ``skills/scan-harnesses/SKILL.md`` Step 5)."
 }
 
-$lines | Set-Content $reportPath -Encoding utf8
+$report | Set-Content $reportPath -Encoding utf8
 Write-Host "`nReport written to: harnesses/$harnessId/SCAN-REPORT.md"
 ```
-
-The report is saved as `harnesses/<harness-id>/SCAN-REPORT.md` inside the harness folder. It is a markdown file with a severity table, file paths, line numbers, and matched content.
 
 If **any CRITICAL findings** are present, **stop and do not commit**. Present the findings to the user and ask how to proceed before running Step 8.
 

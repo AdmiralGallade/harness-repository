@@ -25,20 +25,32 @@ This skill scans every `.md` file across `harnesses/` and `skills/` and reports 
 
 ## Steps
 
-### 1 — Locate all markdown files
+### 1 — Locate the repository root and collect files
 
-The harness repository root is:
-
-```
-C:\Users\mailf\OneDrive\Documents\GitHub\harness-repository\harness-repository\
-```
-
-Collect every `.md` file under `harnesses/` and `skills/`:
+Detect the repository root automatically by finding the nearest ancestor directory that contains `harnesses.json`. This works regardless of where the repo is cloned.
 
 ```powershell
-$root = "C:\Users\mailf\OneDrive\Documents\GitHub\harness-repository\harness-repository"
+# Auto-detect repository root
+function Get-HarnessRepoRoot {
+    $dir = (Get-Location).Path
+    while ($dir) {
+        if (Test-Path (Join-Path $dir "harnesses.json")) { return $dir }
+        $parent = Split-Path $dir -Parent
+        if ($parent -eq $dir) { break }
+        $dir = $parent
+    }
+    # Fallback: check if git can tell us
+    try {
+        $gitRoot = git rev-parse --show-toplevel 2>$null
+        if ($gitRoot -and (Test-Path (Join-Path $gitRoot "harnesses.json"))) { return $gitRoot }
+    } catch {}
+    throw "Could not locate harness repository root. Run from within the harness-repository directory."
+}
+
+$root  = Get-HarnessRepoRoot
 $files = Get-ChildItem "$root\harnesses", "$root\skills" -Recurse -Filter "*.md" -File
-Write-Host "Files to scan: $($files.Count)"
+Write-Host "Repository root : $root"
+Write-Host "Files to scan   : $($files.Count)"
 ```
 
 ---
@@ -48,7 +60,22 @@ Write-Host "Files to scan: $($files.Count)"
 Run this PowerShell script. It checks every file against all detection categories and writes a structured findings list.
 
 ```powershell
-$root  = "C:\Users\mailf\OneDrive\Documents\GitHub\harness-repository\harness-repository"
+function Get-HarnessRepoRoot {
+    $dir = (Get-Location).Path
+    while ($dir) {
+        if (Test-Path (Join-Path $dir "harnesses.json")) { return $dir }
+        $parent = Split-Path $dir -Parent
+        if ($parent -eq $dir) { break }
+        $dir = $parent
+    }
+    try {
+        $gitRoot = git rev-parse --show-toplevel 2>$null
+        if ($gitRoot -and (Test-Path (Join-Path $gitRoot "harnesses.json"))) { return $gitRoot }
+    } catch {}
+    throw "Could not locate harness repository root. Run from within the harness-repository directory."
+}
+
+$root  = Get-HarnessRepoRoot
 $files = Get-ChildItem "$root\harnesses", "$root\skills" -Recurse -Filter "*.md" -File
 
 # ── Detection rules ────────────────────────────────────────────────────────────
@@ -281,11 +308,12 @@ If a finding is confirmed malicious:
 1. **Quarantine the harness** — remove its folder from `harnesses/` and its entry from `harnesses.json`:
 
 ```powershell
-$harness = "<harness-id>"   # e.g. "everything-claude-code"
-Remove-Item "C:\Users\mailf\OneDrive\Documents\GitHub\harness-repository\harness-repository\harnesses\$harness" -Recurse -Force
+$root    = Get-HarnessRepoRoot   # defined above
+$harness = "<harness-id>"
 
-# Remove entry from harnesses.json
-$repoJson = "C:\Users\mailf\OneDrive\Documents\GitHub\harness-repository\harness-repository\harnesses.json"
+Remove-Item (Join-Path $root "harnesses\$harness") -Recurse -Force
+
+$repoJson = Join-Path $root "harnesses.json"
 $json = Get-Content $repoJson -Raw | ConvertFrom-Json
 $json.harnesses = $json.harnesses | Where-Object { $_.id -ne $harness }
 $json | ConvertTo-Json -Depth 20 | Set-Content $repoJson -Encoding utf8
