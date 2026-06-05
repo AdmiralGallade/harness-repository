@@ -993,7 +993,7 @@
                       {
                           "id":  "harness-skills",
                           "name":  "Harness Skills",
-                          "description":  "Claude Code skills for the Harness.io CI/CD platform. Create pipelines, debug executions, manage infrastructure, enforce security policies, and analyse costs using natural language via the Harness MCP v2 server.",
+                          "description":  "⚠️ REQUIRES HARNESS.IO ACCOUNT + API KEY — Claude Code skills for the Harness.io CI/CD platform. Set up the Harness MCP v2 server with your HARNESS_API_KEY before use. See README for MCP config. Provides pipeline creation, execution debugging, cost analysis, and infra management via natural language.",
                           "category":  "workflow",
                           "tags":  [
                                        "harness",
@@ -3131,7 +3131,7 @@
                       {
                           "id":  "anthropic-skills",
                           "name":  "Anthropic Skills",
-                          "description":  "Official Anthropic collection of production-ready agent skills, templates, and the skill-creator meta-skill.",
+                          "description":  "Official Anthropic collection of production-ready agent skills, templates, and the skill-creator meta-skill. ℹ️ Document-creation skills (docx/pdf/pptx/xlsx) are source-available and designed for use via the Claude API — a Claude.ai account or API key is required to use those skills.",
                           "category":  "workflow",
                           "tags":  [
                                        "anthropic",
@@ -7587,7 +7587,7 @@
                       {
                           "id":  "everything-claude-code",
                           "name":  "Everything Claude Code (ECC)",
-                          "description":  "Agent harness performance optimisation system with 38 agents, 156 skills, hooks, rules, MCP conventions, and multi-harness support for Claude Code, Codex, Cursor, OpenCode, and more.",
+                          "description":  "Agent harness optimisation system with 38 agents, 156 skills, hooks, rules, and multi-harness support for Claude Code, Codex, Cursor, OpenCode, and more. ℹ️ Optional MCP integrations (GitHub, Jira, Supabase, Firecrawl, etc.) each require their own service API key — see mcp-configs/mcp-servers.json.",
                           "category":  "workflow",
                           "tags":  [
                                        "ecc",
