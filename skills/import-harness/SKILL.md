@@ -18,7 +18,59 @@ Ask the user for:
 - **Tags**: comma-separated keywords.
 - **Attribution / author credit**: the original author and source URL. Prepopulate from the GitHub URL when available (format: `owner (https://github.com/owner/repo)`).
 
-If the source is a GitHub URL, tell the user to clone or download it locally first, then provide the local path. Do not attempt to clone automatically.
+If the source is a GitHub URL, use the **Import from GitHub URL** function below to clone it automatically into a temporary directory — do not ask the user to clone it manually.
+
+### 1b — Import from GitHub URL
+
+When the source is a GitHub URL, run this function to shallow-clone the repo into a temporary directory and return the local path for use in subsequent steps.
+
+```powershell
+function Import-HarnessFromGitHub {
+    param(
+        [Parameter(Mandatory)][string]$GitHubUrl  # e.g. https://github.com/owner/repo
+    )
+
+    # Derive a safe folder name from the URL
+    $repoSlug = ($GitHubUrl.TrimEnd('/') -split '/')[-1]   # last path segment
+    $tmpDir   = Join-Path $env:TEMP "harness-import-$repoSlug"
+
+    # Remove any stale clone
+    if (Test-Path $tmpDir) {
+        Remove-Item $tmpDir -Recurse -Force
+    }
+
+    Write-Host "Cloning $GitHubUrl into $tmpDir ..."
+    git clone --depth 1 $GitHubUrl $tmpDir
+
+    if (-not $?) {
+        throw "git clone failed for $GitHubUrl. Check the URL and your network connection."
+    }
+
+    # Remove the .git folder — we only want the source files
+    $gitDir = Join-Path $tmpDir ".git"
+    if (Test-Path $gitDir) {
+        Remove-Item $gitDir -Recurse -Force
+    }
+
+    Write-Host "Cloned successfully. Source path: $tmpDir"
+    return $tmpDir
+}
+
+# Usage — call before Step 3:
+# $sourcePath = Import-HarnessFromGitHub -GitHubUrl "https://github.com/owner/repo"
+```
+
+After Step 3 (copying files), clean up the temporary clone:
+
+```powershell
+# Cleanup — run after the copy in Step 3 is complete
+$repoSlug = ($GitHubUrl.TrimEnd('/') -split '/')[-1]
+$tmpDir   = Join-Path $env:TEMP "harness-import-$repoSlug"
+if (Test-Path $tmpDir) {
+    Remove-Item $tmpDir -Recurse -Force
+    Write-Host "Temporary clone removed."
+}
+```
 
 ### 2 — Locate the repository root
 
