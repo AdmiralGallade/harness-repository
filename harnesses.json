@@ -34,7 +34,10 @@
                                             "type":  "documentation",
                                             "description":  "Setup and usage instructions"
                                         }
-                                    ]
+                                    ],
+                          "externalRequirements":  [
+
+                                                   ]
                       },
                       {
                           "id":  "migration",
@@ -68,7 +71,10 @@
                                             "type":  "documentation",
                                             "description":  "Setup and usage instructions"
                                         }
-                                    ]
+                                    ],
+                          "externalRequirements":  [
+
+                                                   ]
                       },
                       {
                           "id":  "dev-wiki",
@@ -345,7 +351,10 @@
                                             "type":  "template",
                                             "description":  "dev-scan companion Ã¢â‚¬â€ refresh flow"
                                         }
-                                    ]
+                                    ],
+                          "externalRequirements":  [
+
+                                                   ]
                       },
                       {
                           "id":  "knowledge-wiki",
@@ -988,12 +997,15 @@
                                     ],
                           "dependencies":  [
 
-                                           ]
+                                           ],
+                          "externalRequirements":  [
+
+                                                   ]
                       },
                       {
                           "id":  "harness-skills",
                           "name":  "Harness Skills",
-                          "description":  "⚠️ REQUIRES HARNESS.IO ACCOUNT + API KEY — Claude Code skills for the Harness.io CI/CD platform. Set up the Harness MCP v2 server with your HARNESS_API_KEY before use. See README for MCP config. Provides pipeline creation, execution debugging, cost analysis, and infra management via natural language.",
+                          "description":  "Claude Code skills for the Harness.io CI/CD platform. Create pipelines, debug executions, manage infrastructure, enforce security policies, and analyse costs using natural language via the Harness MCP v2 server.",
                           "category":  "workflow",
                           "tags":  [
                                        "harness",
@@ -1521,7 +1533,12 @@
                                             "type":  "documentation",
                                             "description":  "verify-sign reference: interactive-wizard-flow"
                                         }
-                                    ]
+                                    ],
+                          "externalRequirements":  [
+                                                       "Harness.io account — sign up at https://harness.io",
+                                                       "HARNESS_API_KEY — generate in Harness account settings",
+                                                       "Harness MCP v2 server — configure in Claude Code settings.json (see harness README)"
+                                                   ]
                       },
                       {
                           "id":  "agents-marketplace",
@@ -2384,7 +2401,10 @@
                                             "type":  "template",
                                             "description":  "web-component-design — SKILL.md"
                                         }
-                                    ]
+                                    ],
+                          "externalRequirements":  [
+
+                                                   ]
                       },
                       {
                           "id":  "claude-code-harness",
@@ -3126,12 +3146,15 @@
                                             "type":  "template",
                                             "description":  "zz-review-escape — SKILL.md"
                                         }
-                                    ]
+                                    ],
+                          "externalRequirements":  [
+
+                                                   ]
                       },
                       {
                           "id":  "anthropic-skills",
                           "name":  "Anthropic Skills",
-                          "description":  "Official Anthropic collection of production-ready agent skills, templates, and the skill-creator meta-skill. ℹ️ Document-creation skills (docx/pdf/pptx/xlsx) are source-available and designed for use via the Claude API — a Claude.ai account or API key is required to use those skills.",
+                          "description":  "Official Anthropic collection of production-ready agent skills, templates, and the skill-creator meta-skill.",
                           "category":  "workflow",
                           "tags":  [
                                        "anthropic",
@@ -3332,7 +3355,10 @@
                                             "type":  "template",
                                             "description":  "template — SKILL.md"
                                         }
-                                    ]
+                                    ],
+                          "externalRequirements":  [
+                                                       "Claude API key or claude.ai account — required for the document-creation skills (docx, pdf, pptx, xlsx)"
+                                                   ]
                       },
                       {
                           "id":  "reflexive-claude-code",
@@ -3558,7 +3584,10 @@
                                             "type":  "template",
                                             "description":  "writing-subagents — SKILL.md"
                                         }
-                                    ]
+                                    ],
+                          "externalRequirements":  [
+
+                                                   ]
                       },
                       {
                           "id":  "claude-skills",
@@ -7582,12 +7611,15 @@
                                             "type":  "documentation",
                                             "description":  "templates — CLAUDE.md"
                                         }
-                                    ]
+                                    ],
+                          "externalRequirements":  [
+
+                                                   ]
                       },
                       {
                           "id":  "everything-claude-code",
                           "name":  "Everything Claude Code (ECC)",
-                          "description":  "Agent harness optimisation system with 38 agents, 156 skills, hooks, rules, and multi-harness support for Claude Code, Codex, Cursor, OpenCode, and more. ℹ️ Optional MCP integrations (GitHub, Jira, Supabase, Firecrawl, etc.) each require their own service API key — see mcp-configs/mcp-servers.json.",
+                          "description":  "Agent harness optimisation system with 38 agents, 156 skills, hooks, rules, MCP conventions, and multi-harness support for Claude Code, Codex, Cursor, OpenCode, and more.",
                           "category":  "workflow",
                           "tags":  [
                                        "ecc",
@@ -11882,7 +11914,14 @@
                                             "type":  "template",
                                             "description":  "x-api — SKILL.md"
                                         }
-                                    ]
+                                    ],
+                          "externalRequirements":  [
+                                                       "GitHub Personal Access Token — for the bundled GitHub MCP server",
+                                                       "Jira account + API token — for the bundled Jira MCP server",
+                                                       "Supabase project ref — for the bundled Supabase MCP server",
+                                                       "Firecrawl API key — for the bundled Firecrawl MCP server",
+                                                       "Other service keys optional — see mcp-configs/mcp-servers.json for the full list"
+                                                   ]
                       }
                   ]
 }
