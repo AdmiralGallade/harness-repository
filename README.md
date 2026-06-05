@@ -1,48 +1,65 @@
 # Harness Repository
 
-Central repository for VS Code Harness Manager extension. Contains predefined harnesses and skills for project initialization.
+A community-maintained registry of harnesses for the [VS Code Harness Manager](https://marketplace.visualstudio.com/items?itemName=AdmiralGallade.vscode-harness-manager) extension.
 
-## Structure
+Harnesses are pre-built project setups — hooks, skills, rules, and config — that you can install into any project in one click through the extension.
 
-- **`/harnesses`** - Contains harness templates and configurations
-- **`/skills`** - Contains skill definitions and implementations
-- **`harnesses.json`** - Main manifest listing all available harnesses
+## Available Harnesses
 
-## Harness Types
+| Name | Category | Description |
+|------|----------|-------------|
+| Data Intensive | data | Caching, batch processing, and monitoring for data-heavy projects |
+| Dev Wiki | knowledge | Project lifecycle system with hooks and companions for Claude Code |
+| Knowledge Wiki | knowledge | CRUD operations for persistent knowledge bases |
+| Migration | migration | Validation tools and data conversion utilities for system transitions |
 
-### Data Intensive
-Optimized for large-scale data processing workflows. Includes caching strategies, batch processing templates, and performance monitoring.
+Browse the [`harnesses/`](./harnesses/) folder to explore each one.
 
-### Migration
-For migrating between systems or versions. Includes compatibility checks, data transformation utilities, and rollback procedures.
+## Contributing a Harness
 
-## Usage
+Want to share a harness with the community? Raise a pull request — contributions are welcome.
 
-The VS Code Harness Manager extension fetches this repository to provide users with available harness templates.
-
-## Adding a New Harness
-
-Use the `import-harness` skill in Claude Code for a guided import:
+**1. Create a folder under `harnesses/`**
 
 ```
-/import-harness
+harnesses/your-harness-name/
+├── README.md          # What this harness does and how to use it
+├── LICENSE            # License for your harness
+├── hooks/             # Claude Code hooks (optional)
+├── rules/             # Rules files (optional)
+└── skills/            # Skills (optional)
 ```
 
-The skill will walk you through copying files, building the manifest entry, and adding attribution.
+**2. Add an entry to `harnesses.json`**
 
-### Manual steps
-
-1. Create a new folder in `/harnesses/<harness-name>/`
-2. Copy source files preserving directory structure
-3. Add an attribution block to the harness `README.md` (see below)
-4. Update `harnesses.json` with the new harness entry
-
-### Attribution
-
-Harnesses sourced from external repositories must include an attribution block at the top of their `README.md`:
-
-```markdown
-> **Attribution:** This harness is sourced from [owner/repo](https://github.com/owner/repo) by [@owner](https://github.com/owner), used under the MIT License. No modifications have been made to the original files.
+```json
+{
+  "id": "your-harness-name",
+  "name": "Your Harness Name",
+  "description": "One sentence on what this harness does.",
+  "category": "data | migration | workflow | knowledge",
+  "tags": ["tag1", "tag2"],
+  "author": "your-github-username",
+  "version": "1.0.0",
+  "files": [
+    { "path": "harnesses/your-harness-name/README.md", "type": "documentation" }
+  ]
+}
 ```
 
-The `author` field in `harnesses.json` should follow the format: `owner (https://github.com/owner/repo)`.
+**3. Open a pull request**
+
+Title your PR `feat: add <harness-name> harness` and briefly describe what it does in the body.
+
+## Guidelines
+
+- Include a `README.md` inside your harness folder explaining what it does and any setup steps.
+- If your harness is based on someone else's work, include a `LICENSE` file and credit the original source with an attribution block at the top of your `README.md`:
+
+  > **Attribution:** Sourced from [owner/repo](https://github.com/owner/repo) by [@owner](https://github.com/owner), used under the MIT License.
+
+- Keep harnesses focused — one clear purpose per harness.
+
+## License
+
+This repository is licensed under the [MIT License](./LICENSE).
